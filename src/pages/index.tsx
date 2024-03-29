@@ -1,8 +1,20 @@
-// pages/index.tsx
-
+// index.tsx
 import { GetStaticProps } from 'next';
 
-export default function Home({ products }) {
+// Defines the shape of a product for TypeScript, if your products follow a different structure,
+// adjust the fields accordingly.
+interface Product {
+  id: number;
+  title: string;
+  price: number;
+}
+
+// The Home component, which expects an array of products as props.
+interface HomeProps {
+  products: Product[];
+}
+
+export default function Home({ products }: HomeProps) {
   return (
     <div className="bg-darkblue text-peach min-h-screen">
       <div className="container mx-auto p-4">
@@ -21,14 +33,26 @@ export default function Home({ products }) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  // Fetch the products
-  const res = await fetch('https://api.escuelajs.co/api/v1/products');
-  const products = await res.json();
+  try {
+    const response = await fetch('https://api.escuelajs.co/api/v1/products');
+    if (!response.ok) {
+      // Handle the case where the response status is not OK.
+      throw new Error(`Failed to fetch products, status: ${response.status}`);
+    }
+    const products: Product[] = await response.json();
 
-  // Return the products as props
-  return {
-    props: {
-      products,
-    },
-  };
+    return {
+      props: {
+        products,
+      },
+    };
+  } catch (error) {
+    // Handle any errors in fetching data
+    console.error('Error fetching products:', error);
+    return {
+      props: {
+        products: [],
+      },
+    };
+  }
 };

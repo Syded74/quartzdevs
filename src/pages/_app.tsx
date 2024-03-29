@@ -1,10 +1,16 @@
-// pages/_app.js or pages/_app.tsx
-
+// First, import the AppProps type from 'next/app'
+import type { AppProps } from 'next/app';
 import '../styles/globals.css';
-// Other imports...
+import Head from 'next/head';
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+// Then, use the AppProps type to type the function parameters
+function MyApp({ Component, pageProps }: AppProps) {
+  return (
+    <>
+     
+      <Component {...pageProps} />
+    </>
+  );
 }
 
 export default MyApp;

@@ -1,19 +1,17 @@
-// Layout.tsx
+import React, { ReactNode } from 'react';
+import Head from 'next/head';
 
-import React from 'react';
-import { Inter } from 'next/font/google';
-import "../../styles/globals.css";
+type LayoutProps = {
+  children?: ReactNode; // Making `children` optional
+};
 
-
-const inter = Inter({ subsets: ['latin'] });
-
-const Layout: React.FC = ({ children }) => {
+const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div className={inter.className}>
+    <>
+      
       {children}
-    </div>
+    </>
   );
 };
 
 export default Layout;
-
