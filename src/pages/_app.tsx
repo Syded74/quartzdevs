@@ -1,0 +1,10 @@
+// pages/_app.js or pages/_app.tsx
+
+import '../styles/globals.css';
+// Other imports...
+
+function MyApp({ Component, pageProps }) {
+  return <Component {...pageProps} />;
+}
+
+export default MyApp;
